@@ -1,6 +1,7 @@
 package mx.uv;
 
 import static spark.Spark.*;
+import  com.google.gson.*;
 
 public class App 
 {
@@ -22,17 +23,25 @@ public class App
 });
 
 before((request,response)->response.header("Access-Control-Allow-Origin","*"));
-        get("/", (request, response) -> {
-            return "<h1>Hola mundo</h1>";
-        });
+        get("/", (request, response) ->"<h1>Hola mundo</h1>");
          get("/ruta1", (request, response) -> {
             return "<h1>Hola mundo XD</h1>";
         });
          get("/ruta2", (request, response) -> {
+            response.type("application/json");
             return "{\"alumno\":\"Juan\"}";
         });
          get("/ruta3", (request, response) -> {
             return "<h1>Byeee</h1>";
+        });
+        get("/ruta4", (request,response)->{
+
+            String parametro = request.queryParams("nombre");
+            JsonObject respuesta = new JsonObject();
+            respuesta.addProperty("msj", "Hola");
+            respuesta.addProperty("apellido", parametro);
+            response.type("application/json");
+            return respuesta;
         });
     }
 }
