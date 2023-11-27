@@ -11,7 +11,7 @@ function Formulario(props){
     })
     const hacerPeticion = async () =>{
         try {
-            const res = await axios.get('http://localhost:4567/ruta4',{params: datosFormulario})
+            const res = await axios.post('http://localhost:4567/ruta4',datosFormulario)
             return res.data
         } catch (error) {
             throw error
